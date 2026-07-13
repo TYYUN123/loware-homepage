@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOWARE — RAW RESTRAINT</title>
+<title>LOWEAR — RAW RESTRAINT</title>
 <style>
   :root{
     --black:#000000;
@@ -118,6 +118,37 @@
     text-transform:uppercase;
     white-space:nowrap;
   }
+  .gnb-item{position:relative;}
+  .gnb-dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    margin-top:14px;
+    min-width:140px;
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:14px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s;
+    z-index:10;
+  }
+  .gnb-item:hover .gnb-dropdown,
+  .gnb-item:focus-within .gnb-dropdown{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .gnb-dropdown a{
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gray);
+  }
+  .gnb-dropdown a:hover{color:var(--black);}
   @media (min-width:900px){
     .gnb-nav{display:flex;}
   }
@@ -159,7 +190,7 @@
   .hero{
     width:100%;
     height:100%;
-    background:var(--gray-bg);
+    background:var(--white);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -173,6 +204,7 @@
     height:100%;
     object-fit:contain;
     object-position:center bottom;
+    z-index:1;
   }
   .hero-label{
     color:var(--gray);
@@ -366,21 +398,52 @@
   <!-- Marquee -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span>
-      <span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span><span>LOWARE — RAW RESTRAINT</span>
+      <span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span>
+      <span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span><span>LOWEAR — RAW RESTRAINT</span>
     </div>
   </div>
 
   <!-- GNB -->
   <header class="gnb" id="gnb">
     <div class="container gnb-inner">
-      <a href="main.html" class="gnb-logo">LOWARE</a>
+      <a href="main.html" class="gnb-logo">LOWEAR</a>
       <nav class="gnb-nav">
-        <a href="category.html?cate=outwear">Outwear</a>
-        <a href="category.html?cate=tops">Tops</a>
-        <a href="category.html?cate=dresses">Dresses</a>
-        <a href="category.html?cate=bottoms">Bottoms</a>
-        <a href="category.html?cate=accessories">Accessories</a>
+        <div class="gnb-item">
+          <a href="category.html?cate=outwear">Outwear</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=outwear&sub=cardigan">Cardigan</a>
+            <a href="category.html?cate=outwear&sub=shirts">Shirts</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=tops">Tops</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=tops&sub=blouse">Blouse</a>
+            <a href="category.html?cate=tops&sub=tee">Tee</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=dresses">Dresses</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=dresses&sub=new">New</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=bottoms">Bottoms</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=bottoms&sub=jeans">Jeans</a>
+            <a href="category.html?cate=bottoms&sub=pants">Pants</a>
+            <a href="category.html?cate=bottoms&sub=shorts">Shorts</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=accessories">Accessories</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=accessories&sub=necklace">Necklace</a>
+            <a href="category.html?cate=accessories&sub=bracelet">Bracelet</a>
+            <a href="category.html?cate=accessories&sub=belt">Belt</a>
+          </div>
+        </div>
       </nav>
       <div class="gnb-right">
         <div class="gnb-links">
@@ -398,7 +461,7 @@
   <!-- Panel 0: Hero -->
   <div class="panel" data-index="0">
     <div class="hero">
-      <img src="images/hero-main-web.jpg" alt="LOWARE Main Visual">
+      <img src="images/hero-main-web.jpg" alt="LOWEAR Main Visual">
       <div class="hero-cta">
         <a href="index.html" class="pill-btn">Collection</a>
         <a href="#" class="pill-btn">Search</a>
@@ -448,7 +511,7 @@
 
   <!-- Panel 2: Statement -->
   <section class="panel statement" data-index="2">
-    <p>Raw materials, restrained silhouettes. LOWARE strips away excess to leave only what a garment needs to be.</p>
+    <p>Raw materials, restrained silhouettes. LOWEAR strips away excess to leave only what a garment needs to be.</p>
   </section>
 
   <!-- Panel 3: Best -->
@@ -494,19 +557,19 @@
   <!-- Panel 4: Footer -->
   <footer class="panel footer" data-index="4">
     <div class="container">
-      <div class="footer-logo">LOWARE</div>
+      <div class="footer-logo">LOWEAR</div>
       <div class="footer-info">
-        COMPANY LOWARE&nbsp;&nbsp;|&nbsp;&nbsp;CEO 홍길동<br>
+        COMPANY LOWEAR&nbsp;&nbsp;|&nbsp;&nbsp;CEO 홍길동<br>
         서울특별시 성동구 성수동 000-00, 3F<br>
         사업자등록번호 000-00-00000&nbsp;&nbsp;|&nbsp;&nbsp;통신판매업신고 제0000-서울성동-0000호<br>
-        Email contact@loware.co.kr&nbsp;&nbsp;|&nbsp;&nbsp;Tel 02-0000-0000
+        Email contact@lowear.co.kr&nbsp;&nbsp;|&nbsp;&nbsp;Tel 02-0000-0000
       </div>
       <div class="footer-links">
         <a href="#">Terms of Service</a>
         <a href="#">Privacy Policy</a>
       </div>
       <div class="footer-bottom">
-        © LOWARE. ALL RIGHTS RESERVED.
+        © LOWEAR. ALL RIGHTS RESERVED.
       </div>
     </div>
   </footer>

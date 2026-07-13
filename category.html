@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOWARE — SHOP</title>
+<title>LOWEAR — SHOP</title>
 <style>
   :root{
     --black:#000000;
@@ -68,6 +68,38 @@
     border-bottom:1px solid transparent;
   }
   .gnb-nav a.active{border-bottom-color:var(--black);}
+  .gnb-item{position:relative;}
+  .gnb-dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    margin-top:14px;
+    min-width:140px;
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:14px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s;
+    z-index:10;
+  }
+  .gnb-item:hover .gnb-dropdown,
+  .gnb-item:focus-within .gnb-dropdown{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .gnb-dropdown a{
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gray);
+    border-bottom:none;
+  }
+  .gnb-dropdown a:hover{color:var(--black);}
   @media (min-width:900px){
     .gnb-nav{display:flex;}
   }
@@ -154,15 +186,11 @@
     background:var(--gray-bg);
     overflow:hidden;
     position:relative;
-    cursor:ns-resize;
   }
   .cate-thumb img{
-    position:absolute;
-    top:0;
-    left:0;
     width:100%;
-    height:auto;
-    transform:translateY(0);
+    height:100%;
+    object-fit:cover;
   }
   .cate-name{
     font-size:13px;
@@ -246,13 +274,44 @@
   <!-- GNB -->
   <header class="gnb">
     <div class="container gnb-inner">
-      <a href="main.html" class="gnb-logo">LOWARE</a>
+      <a href="main.html" class="gnb-logo">LOWEAR</a>
       <nav class="gnb-nav" id="gnbNav">
-        <a href="category.html?cate=outwear" data-cate="outwear">Outwear</a>
-        <a href="category.html?cate=tops" data-cate="tops">Tops</a>
-        <a href="category.html?cate=dresses" data-cate="dresses">Dresses</a>
-        <a href="category.html?cate=bottoms" data-cate="bottoms">Bottoms</a>
-        <a href="category.html?cate=accessories" data-cate="accessories">Accessories</a>
+        <div class="gnb-item">
+          <a href="category.html?cate=outwear" data-cate="outwear">Outwear</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=outwear&sub=cardigan">Cardigan</a>
+            <a href="category.html?cate=outwear&sub=shirts">Shirts</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=tops" data-cate="tops">Tops</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=tops&sub=blouse">Blouse</a>
+            <a href="category.html?cate=tops&sub=tee">Tee</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=dresses" data-cate="dresses">Dresses</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=dresses&sub=new">New</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=bottoms" data-cate="bottoms">Bottoms</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=bottoms&sub=jeans">Jeans</a>
+            <a href="category.html?cate=bottoms&sub=pants">Pants</a>
+            <a href="category.html?cate=bottoms&sub=shorts">Shorts</a>
+          </div>
+        </div>
+        <div class="gnb-item">
+          <a href="category.html?cate=accessories" data-cate="accessories">Accessories</a>
+          <div class="gnb-dropdown">
+            <a href="category.html?cate=accessories&sub=necklace">Necklace</a>
+            <a href="category.html?cate=accessories&sub=bracelet">Bracelet</a>
+            <a href="category.html?cate=accessories&sub=belt">Belt</a>
+          </div>
+        </div>
       </nav>
       <div class="gnb-right">
         <div class="gnb-links">
@@ -278,19 +337,19 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-logo">LOWARE</div>
+      <div class="footer-logo">LOWEAR</div>
       <div class="footer-info">
-        COMPANY LOWARE&nbsp;&nbsp;|&nbsp;&nbsp;CEO 홍길동<br>
+        COMPANY LOWEAR&nbsp;&nbsp;|&nbsp;&nbsp;CEO 홍길동<br>
         서울특별시 성동구 성수동 000-00, 3F<br>
         사업자등록번호 000-00-00000&nbsp;&nbsp;|&nbsp;&nbsp;통신판매업신고 제0000-서울성동-0000호<br>
-        Email contact@loware.co.kr&nbsp;&nbsp;|&nbsp;&nbsp;Tel 02-0000-0000
+        Email contact@lowear.co.kr&nbsp;&nbsp;|&nbsp;&nbsp;Tel 02-0000-0000
       </div>
       <div class="footer-links">
         <a href="#">Terms of Service</a>
         <a href="#">Privacy Policy</a>
       </div>
       <div class="footer-bottom">
-        © LOWARE. ALL RIGHTS RESERVED.
+        © LOWEAR. ALL RIGHTS RESERVED.
       </div>
     </div>
   </footer>
@@ -372,8 +431,11 @@
     var params = new URLSearchParams(location.search);
     var cate = params.get('cate') || 'outwear';
     var data = CATEGORIES[cate] || CATEGORIES.outwear;
+    var sub = (params.get('sub') || '').toLowerCase();
+    var activeIndex = data.subnav.findIndex(function(label){ return label.toLowerCase() === sub; });
+    if(activeIndex === -1) activeIndex = 0;
 
-    document.title = 'LOWARE — ' + data.title.toUpperCase();
+    document.title = 'LOWEAR — ' + data.title.toUpperCase();
     document.getElementById('cateTitle').textContent = data.title;
 
     document.querySelectorAll('#gnbNav a').forEach(function(a){
@@ -385,7 +447,7 @@
     data.subnav.forEach(function(label, i){
       var btn = document.createElement('button');
       btn.textContent = label;
-      if(i === 0) btn.classList.add('active');
+      if(i === activeIndex) btn.classList.add('active');
       btn.addEventListener('click', function(){
         subnav.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
         btn.classList.add('active');
@@ -421,34 +483,6 @@
     }, {threshold:0.15});
     document.querySelectorAll('.cate-card').forEach(function(card){
       observer.observe(card);
-    });
-
-    setupImagePan();
-  }
-
-  function setupImagePan(){
-    document.querySelectorAll('.cate-thumb').forEach(function(thumb){
-      var img = thumb.querySelector('img');
-      var offset = 0;
-
-      function maxOffset(){
-        return Math.max(0, img.offsetHeight - thumb.offsetHeight);
-      }
-
-      function applyOffset(){
-        offset = Math.max(0, Math.min(maxOffset(), offset));
-        img.style.transform = 'translateY(' + (-offset) + 'px)';
-      }
-
-      thumb.addEventListener('wheel', function(e){
-        if(maxOffset() <= 0) return;
-        e.preventDefault();
-        offset += e.deltaY * 0.6;
-        applyOffset();
-      }, {passive:false});
-
-      if(img.complete){ applyOffset(); }
-      else{ img.addEventListener('load', applyOffset); }
     });
   }
 
